@@ -822,9 +822,9 @@ x$Treatment_Character<-as.character(x$Treatment)
 x$Missing_factor<-as.factor(x$Missing)
 x$y_1Missing_NA<-x$Missing;x$y_1Missing_NA[x$Treatment==1]<-NA
 x$Treatment_unico<-as.factor(c("1"))
-
 usktest(Missing~Treatment+Imputed,x,.05,ANOVA=F)
 usktest(Missing_factor~Treatment_Character,x,.05,ANOVA=F)
+usktest(Missing~Treatment_Character,x,.05,ANOVA=F)
 usktest(y_1Missing_NA~Treatment,x,.05,ANOVA=F)
 usktest(Missing~Treatment_unico,x,.05,ANOVA=F)
 ###Muitos tratamentos###########
@@ -889,7 +889,7 @@ for(i in 1:12){
 ###Verificando o impacto do sigma nos taus###############################################
 x<-dataset(taus=c(1,1,-1,-1),
            mu=1,
-           sigma=.5,
+           sigma=2,
            observations=4,
            missings=5,
            groups=2,
@@ -897,9 +897,17 @@ x<-dataset(taus=c(1,1,-1,-1),
 plotly_usk(usktest(Missing~Treatment,x,0.05,ANOVA=T))
 x<-dataset(taus=c(1,1,-1,-1),
            mu=1,
-           sigma=3,
+           sigma=2,
            observations=1000,
            missings=5,
            groups=2,
            seed=20)
 plotly_usk(usktest(Missing~Treatment,x,0.05,ANOVA=T))
+x<-dataset(taus=c(1,1,-1,-1),
+           mu=1,
+           sigma=2,
+           observations=4,
+           missings=5,
+           groups=2,
+           seed=20)
+plotly_usk(usktest(Missing~Treatment,x,0.20,ANOVA=T))
